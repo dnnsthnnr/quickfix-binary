@@ -8,4 +8,7 @@ autoconf
 
 ./configure --with-python3 --with-ruby && make && make check
 
+cd ../
+
+python setup.py sdist
 python setup.py bdist
