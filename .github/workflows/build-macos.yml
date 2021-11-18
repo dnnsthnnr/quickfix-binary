@@ -7,5 +7,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Setup
+        run: brew install automake
       - name: Build
-        run: brew install automake && ./build.sh
+        run: ./build.sh
