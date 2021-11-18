@@ -1,0 +1,10 @@
+name: Build on macOS
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Build
+        run: ./build.sh
