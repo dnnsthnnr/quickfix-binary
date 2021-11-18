@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: brew install autotools -y && \
+        run: brew install autoconf automake libtool && \
           ./build.sh
