@@ -6,10 +6,12 @@ autoconf
 
 ./bootstrap
 
-./configure --with-python3 --with-ruby && make && make check
+./configure --with-python3 && make && make check
 
 cd ../
 
+mkdir ./C++
+mkdir ./spec
 
 cp quickfix/src/python3/*.py ./
 cp quickfix/src/C++/*.h ./C++

@@ -1,15 +1,9 @@
-from distutils.core import setup
-from distutils.core import Extension
-from distutils.command.install import install
-from distutils.command.build import build
-from distutils.command.build_ext import build_ext
-from distutils.sysconfig import get_config_vars
-
-import subprocess
-import shutil
 import glob
-import os
 import sys
+from distutils.command.build_ext import build_ext
+from distutils.core import Extension
+from distutils.core import setup
+from distutils.sysconfig import get_config_vars
 
 
 class build_ext_subclass(build_ext):
