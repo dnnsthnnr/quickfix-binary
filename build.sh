@@ -23,6 +23,9 @@ cp quickfix/src/python3/QuickfixPython.h ./C++
 
 cp quickfix/spec/FIX*.xml ./spec
 
+echo "List dir"
+ls -l ./C++
+
 touch ./C++/config.h
 touch ./C++/config_windows.h
 
