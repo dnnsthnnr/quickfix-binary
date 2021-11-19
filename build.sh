@@ -21,6 +21,8 @@ cp quickfix/src/python3/QuickfixPython.h ./C++
 
 cp quickfix/spec/FIX*.xml ./spec
 
+touch ./C++/config.h
+touch ./C++/config_windows.h
 
 python setup.py sdist
 python setup.py bdist
