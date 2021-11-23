@@ -1,9 +1,9 @@
 import glob
 import sys
+import sysconfig
 from distutils.command.build_ext import build_ext
-from distutils.core import Extension
-from distutils.core import setup
-from distutils.sysconfig import get_config_vars
+
+from setuptools import setup, Extension
 
 
 class build_ext_subclass(build_ext):
@@ -37,9 +37,8 @@ class build_ext_subclass(build_ext):
 
 
 # Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
-import distutils.sysconfig
 
-cfg_vars = distutils.sysconfig.get_config_vars()
+cfg_vars = sysconfig.get_config_vars()
 for key, value in cfg_vars.items():
     if type(value) == str:
         cfg_vars[key] = value.replace("-Wstrict-prototypes", "")

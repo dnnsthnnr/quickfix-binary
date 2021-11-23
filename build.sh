@@ -29,5 +29,4 @@ ls -l ./C++
 touch ./C++/config.h
 touch ./C++/config_windows.h
 
-python setup.py sdist
-python setup.py bdist
+python setup.py bdist_wheel
