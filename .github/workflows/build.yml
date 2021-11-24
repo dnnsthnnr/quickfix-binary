@@ -6,17 +6,24 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
-        os: ['macos-10.15', 'ubuntu-20.04']
+        python-version: ['3.9',]#'3.10']
+        os: ['ubuntu-20.04'] #'macos-10.15', 'ubuntu-20.04']
     steps:
       - uses: actions/checkout@v2
       - name: Setup
         run: brew install automake
-      - name: Build wheels
-        uses: pypa/cibuildwheel@v2.2.2
-        env:
-          CIBW_BEFORE_BUILD: ./build.sh
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install setuptools wheel twine auditwheel
+      - name: Build
+        run: ./build.sh
+      - name: Fix linux wheel
+        run: auditwheel repair (ls /dist/*.whl | head -1) -w dist
+        if: ${{matrix.os}} == 'ubuntu-20.04'
       #- name: Publish
       #  env:
       #    TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}

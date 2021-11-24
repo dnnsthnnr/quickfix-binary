@@ -29,4 +29,4 @@ cp quickfix/spec/FIX*.xml ./spec
 touch ./C++/config.h
 touch ./C++/config_windows.h
 
-#python setup.py bdist_wheel
+python setup.py bdist_wheel
