@@ -22,7 +22,7 @@ jobs:
       - name: Build
         run: ./build.sh
       - name: Fix linux wheel
-        run: auditwheel repair $(ls ./dist/*.whl | head -1) -w dist --platform manylinux_2_24_x86_64
+        run: auditwheel repair $(ls ./dist/*.whl | head -1) -w dist --plat manylinux_2_24_x86_64
         if: ${{matrix.os}} == 'ubuntu-20.04'
       #- name: Publish
       #  env:
