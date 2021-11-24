@@ -1,33 +1,26 @@
 name: Build
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ['3.9', '3.10']
         os: ['macos-10.15', 'ubuntu-20.04']
     steps:
       - uses: actions/checkout@v2
       - name: Setup
         run: brew install automake
-      - name: Setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: pip install setuptools wheel twine
-      - name: Build
-        run: ./build.sh
-      - name: Publish
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.2.2
         env:
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
-          TWINE_NON_INTERACTIVE: 1
-        run: twine upload --skip-existing dist/*
+          CIBW_BEFORE_BUILD: ./build.sh
+      #- name: Publish
+      #  env:
+      #    TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      #    TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+      #    TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
+      #    TWINE_NON_INTERACTIVE: 1
+      #  run: twine upload --skip-existing dist/*
