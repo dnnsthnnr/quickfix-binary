@@ -44,6 +44,8 @@ for key, value in cfg_vars.items():
         cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
 
 long_description = ''
+with open('LICENSE') as file:
+    license_ = file.read()
 
 setup(name='quickfix',
       version='1.15.1',
@@ -57,6 +59,7 @@ setup(name='quickfix',
       url='http://www.quickfixengine.org',
       download_url='http://www.quickfixengine.org',
       include_dirs=['C++'],
+      license=license_,
       cmdclass={'build_ext': build_ext_subclass},
       ext_modules=[Extension('_quickfix', glob.glob('C++/*.cpp'),
                              extra_compile_args=['-std=c++0x', '-Wno-deprecated', '-Wno-unused-variable',

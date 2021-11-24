@@ -21,10 +21,10 @@ cp -R quickfix/src/C++/double-conversion ./C++
 cp quickfix/src/python3/QuickfixPython.cpp ./C++
 cp quickfix/src/python3/QuickfixPython.h ./C++
 
+cp quickfix/LICENSE ./
+
 cp quickfix/spec/FIX*.xml ./spec
 
-echo "List dir"
-ls -l ./C++
 
 touch ./C++/config.h
 touch ./C++/config_windows.h
