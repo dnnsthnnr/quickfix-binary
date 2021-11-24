@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install setuptools wheel
+        run: pip install setuptools wheel twine
       - name: Build
         run: ./build.sh
       - name: Upload artifact
@@ -30,3 +30,8 @@ jobs:
           path: dist
           name: ${{ matrix.python-version }}-artifact
           retention-days: 5
+      - name: Publish
+        env:
+          TWINE_REPOSITORY_URL: https://pypi.python.org/pypi
+          TWINE_NON_INTERACTIVE: 1
+        run: twine upload dist/*
