@@ -1,14 +1,17 @@
 name: Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ['3.9',]#'3.10']
-        os: ['ubuntu-18.04'] #'macos-10.15', 'ubuntu-20.04']
+        python-version: ['3.9','3.10']
+        os: ['ubuntu-18.04', 'macos-10.15']
     steps:
       - uses: actions/checkout@v2
       - name: Setup
@@ -24,10 +27,10 @@ jobs:
       - name: Fix linux wheel
         run: auditwheel repair $(ls ./dist/*.whl | head -1) -w dist --plat manylinux_2_27_x86_64
         if: ${{matrix.os}} == 'ubuntu-18.04'
-      #- name: Publish
-      #  env:
-      #    TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-      #    TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-      #    TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
-      #    TWINE_NON_INTERACTIVE: 1
-      #  run: twine upload --skip-existing dist/*
+      - name: Publish
+        env:
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
+          TWINE_NON_INTERACTIVE: 1
+        run: twine upload --skip-existing dist/*
