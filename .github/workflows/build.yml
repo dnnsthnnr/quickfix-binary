@@ -10,8 +10,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ['3.9', '3.10']
-        os: ['macos-10.15', 'ubuntu-20.04']
+        python-version: ['3.9','3.10']
+        os: ['ubuntu-18.04', 'macos-10.15']
     steps:
       - uses: actions/checkout@v2
       - name: Setup
@@ -21,9 +21,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install setuptools wheel twine
+        run: pip install setuptools wheel twine auditwheel
       - name: Build
         run: ./build.sh
+      - name: Fix linux wheel
+        run: auditwheel repair $(ls ./dist/*.whl | head -1) -w dist --plat manylinux_2_27_x86_64
+        if: ${{matrix.os}} == 'ubuntu-18.04'
       - name: Publish
         env:
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
